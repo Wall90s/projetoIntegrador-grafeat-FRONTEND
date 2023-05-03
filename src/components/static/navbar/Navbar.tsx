@@ -38,7 +38,7 @@ function Navbar() {
         setAnchorElNav(null)
     };
 
-    
+
     function goLogout() {
         dispatch(addToken(''))
         toast.success('Usuário deslogado!', {
@@ -50,10 +50,10 @@ function Navbar() {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+        });
         navigate('/login')
     }
-    
+
     return (
 
         <>
@@ -66,37 +66,38 @@ function Navbar() {
                         <Grid md={2} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             <img src="https://ik.imagekit.io/grafeat/ilustra%C3%A7%C3%B5es/grafeat-logo-.png?updatedAt=1681816793769" alt="" className='img' />
                         </Grid>
-                        
+
 
                         <Grid md={7} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} justifyContent="start">
                             <Link to='/home'>
                                 <Box mx={1} className='cursor'>
-                                    <Typography variant="h6" style={{color: 'white'}}>
+                                    <Typography variant="h6" style={{ color: 'white' }}>
                                         Home
                                     </Typography>
                                 </Box>
                             </Link>
                             <Link to='/sobre-nos'>
                                 <Box mx={1} className='cursor'>
-                                    <Typography variant="h6" style={{color: 'white'}}>
+                                    <Typography variant="h6" style={{ color: 'white' }}>
                                         Sobre Nós
                                     </Typography>
                                 </Box>
                             </Link>
                             <Link to='/produtos'>
                                 <Box mx={1} className='cursor'>
-                                    <Typography variant="h6" style={{color: 'white'}}>
+                                    <Typography variant="h6" style={{ color: 'white' }}>
                                         Produtos
                                     </Typography>
                                 </Box>
                             </Link>
-                            <Link to='/categorias'>
+                            {(token != "") ? (<Link to='/categorias'>
                                 <Box mx={1} className='cursor'>
-                                    <Typography variant="h6" style={{color: 'white'}}>
-                                    Categorias
+                                    <Typography variant="h6" style={{ color: 'white' }}>
+                                        Categorias
                                     </Typography>
                                 </Box>
-                            </Link>
+                            </Link>) : ""}
+                            
                         </Grid>
 
                         {/* Menu App */}
@@ -131,17 +132,17 @@ function Navbar() {
                                 }}
                             >
                                 {page.map((pages) => (
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">
-                                            <Link to={pages.link}>
-                                                <Box mx={1} className='cursor'>
+                                    <Link to={pages.link}>
+                                        <MenuItem onClick={handleCloseNavMenu}>
+                                            <Typography textAlign="center">
+                                                <Box mx={2} className='cursor'>
                                                     <Typography variant="h6" color="inherit">
                                                         {pages.nome}
                                                     </Typography>
                                                 </Box>
-                                            </Link>
-                                        </Typography>
-                                    </MenuItem>
+                                            </Typography>
+                                        </MenuItem>
+                                    </Link>
                                 ))}
                             </Menu>
                         </Box>
@@ -149,13 +150,12 @@ function Navbar() {
                         {/* Logo */}
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} justifyContent={"center"}>
-                        <img src="https://ik.imagekit.io/grafeat/ilustra%C3%A7%C3%B5es/grafeat-logo-.png?updatedAt=1681816793769" alt="" className='img' />
+                            <img src="https://ik.imagekit.io/grafeat/ilustra%C3%A7%C3%B5es/grafeat-logo-.png?updatedAt=1681816793769" alt="" className='img' />
                         </Box>
 
                         {/* Perfil */}
                         <Grid md={3} sx={{ flexGrow: 0 }}>
-                            {(token != "") && (<PerfilLogado/>)}
-                            {(token == "") && (<PerfilDeslogado/>)}
+                            {(token != "") ? (<PerfilLogado />) : (<PerfilDeslogado />)}
                         </Grid>
                     </Toolbar>
                 </Container>

@@ -11,28 +11,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import WifiProtectedSetupIcon from '@mui/icons-material/WifiProtectedSetup';
 import { toast } from 'react-toastify';
 
+
 function ListaProdutos() {
     const [produtos, setProdutos] = useState<Produto[]>([])
     let navigate = useNavigate()
     const token = useSelector<TokenState, TokenState["token"]>(
         (state) => state.token
     )
-
-    useEffect(() => {
-        if (token == '') {
-            toast.warn('Você precisa estar logado', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                });
-            navigate('/login')
-        }
-    }, [token])
 
     async function getProduto() {
         await busca("/produtos", setProdutos, {
@@ -51,7 +36,9 @@ function ListaProdutos() {
                 produtos.map(produto => (
 
                     <div className='Card_container'>
-                        <img className='Card_img' src={produto.linkFoto} alt="" />
+                        <Link to={`/produtoDetalhado/${produto.id}`}>
+                            <img className='Card_img' src={produto.linkFoto} alt="" />
+                        </Link>
                         <div className='Card_conteudo'>
                             <h1 className='Card_titulo'>{produto.nome}</h1>
                             <p className='Card_descricao'>{produto.descricao}</p>
@@ -62,10 +49,10 @@ function ListaProdutos() {
                             </div>
                         </div>
                         <div className='Card_criador'>
-                            <img src="https://i.postimg.cc/SQBzNQf1/image-avatar.png" alt="avatar" className="small-avatar" />
-                            <p className='Card_descricao'>Criado por <span className='nome_criador'>Jules Wyvern</span></p>
+                            <img src={produto.vendedor?.foto} alt="avatar" className="small-avatar" />
+                            <p className='Card_descricao'>Criado por <span className='nome_criador'>{produto.vendedor?.nomeVendedor}</span></p>
                         </div>
-                        <div className='acoes'>
+                        {(token != "") ? (<div className='acoes'>
                             <Link to={`/formularioProduto/${produto.id}`} className="text-decorator-none" >
                                 <div>
                                     <IconButton aria-label="update">
@@ -80,7 +67,7 @@ function ListaProdutos() {
                                     </IconButton>
                                 </div>
                             </Link>
-                        </div>
+                        </div>) : ""}
                     </div>
                 ))
             }
