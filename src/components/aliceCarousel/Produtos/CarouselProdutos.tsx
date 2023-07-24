@@ -30,7 +30,11 @@ function CarouselProdutos() {
         getProduto()
     }, [produtos.length])
     
-    const items = produtos.map((produto) => (
+
+
+    const items = 
+    produtos.filter(filtro => filtro.preco <= 60).map((produto) => (
+
         <div className='carouselItem'>
             <div className='carouselProduto'>
                 <Link to={`/produtoDetalhado/${produto.id}`}>
@@ -38,7 +42,6 @@ function CarouselProdutos() {
                 </Link>
                 <div className='Card_conteudo'>
                     <h1 className='Card_titulo'>{produto.nome}</h1>
-                    <p className='Card_descricao'>{produto.descricao}</p>
                     <div className='Card_info'>
                         <AttachMoneyIcon style={{ color: 'white' }} />
                         <h2 className='Card_valor'>{`R$ ${produto.preco}`}</h2>

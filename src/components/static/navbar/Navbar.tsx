@@ -64,7 +64,7 @@ function Navbar() {
 
                     <Toolbar disableGutters>
                         <Grid md={2} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            <img src="https://ik.imagekit.io/grafeat/ilustra%C3%A7%C3%B5es/grafeat-logo-.png?updatedAt=1681816793769" alt="" className='img' />
+                            <img src="https://ik.imagekit.io/grafeat/logos/simple-grafeat-logo?updatedAt=1683211137002" alt="" className='img' />
                         </Grid>
 
 
@@ -97,6 +97,13 @@ function Navbar() {
                                     </Typography>
                                 </Box>
                             </Link>) : ""}
+                            <Link to='/faq-ajuda'>
+                                <Box mx={1} className='cursor'>
+                                    <Typography variant="h6" style={{ color: 'white' }}>
+                                        FAQ e Ajuda
+                                    </Typography>
+                                </Box>
+                            </Link>
                             
                         </Grid>
 
